@@ -1,0 +1,16 @@
+dumbfuck0 Player0 0 0
+dumbfuck1 Player1 0 0
+wall-debug0110 Wall 0 0
+wall-debug1010 Wall 0 1
+wall-debug1100 Wall 0 2
+wall-debug0101 Wall 1 0
+wall-debug0000 Wall 1 1
+wall-debug0011 Wall 2 0
+wall-debug1001 Wall 2 2
+wall-debugflat Wall 3 0
+wall-debug1110 Wall 3 1
+wall-debug0111 Wall 4 0
+wall-debug1111 Wall 4 1
+wall-debug1101 Wall 4 2
+wall-debug1011 Wall 5 1
+
