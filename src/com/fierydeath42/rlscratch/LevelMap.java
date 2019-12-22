@@ -67,4 +67,8 @@ public class LevelMap {
 	public Color getBGColor() {
 		return backgroundColor;
 	}
+
+	public boolean isTile(int x, int y, String obj, MapLayerType layerName) {
+		return getLayer(layerName).isTile(x, y, obj);
+	}
 }

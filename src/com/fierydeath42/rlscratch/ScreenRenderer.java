@@ -14,8 +14,9 @@ public class ScreenRenderer {
 	}
 
 	public void drawSprite(Graphics g, String id, int x, int y) {
-		g.drawImage(SpriteSheet.getSprite(id), x, y, x + GameVariables.spriteSize, y + GameVariables.spriteSize, 0, 0
-				, GameVariables.spriteDim, GameVariables.spriteDim, null);
+		if(!id.equals(""))
+			g.drawImage(SpriteSheet.getSprite(id), x, y, x + GameRefConstants.spriteSize, y + GameRefConstants.spriteSize, 0, 0
+				, GameRefConstants.spriteDim, GameRefConstants.spriteDim, null);
 	}
 
 	public void drawMap(Graphics g, Dimension d, LevelMap map) {
@@ -29,7 +30,7 @@ public class ScreenRenderer {
 	public void drawLayer(Graphics g, MapLayer ml) {
 		for (int j = 0; j < ml.getHeight(); j++) {
 			for (int i = 0; i < ml.getWidth(); i++) {
-				drawSprite(g, ml.getTile(j, i), i * GameVariables.spriteSize, j * GameVariables.spriteSize);
+				drawSprite(g, ml.getTile(j, i), i * GameRefConstants.spriteSize, j * GameRefConstants.spriteSize);
 			}
 		}
 	}

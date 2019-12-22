@@ -16,7 +16,10 @@ public class GameObject extends JFrame {
 	}
 
 	public void run() {
+		System.out.println("Running Game...");
 		initializeGame(gs);
+
+		System.out.println("Beginning Game Loop...");
 		while(true) {
 			doGameLoop();
 		}
@@ -34,27 +37,34 @@ public class GameObject extends JFrame {
 	}
 
 	private void updateGraphics() {
+		gs.getParent().setBackground(Color.BLACK);
 		gs.repaint();
 	}
 
 	public void initializeGame(GameScreen gs) {
+		System.out.println("Initializing Game...");
 		loadGraphics();
-		buildWindowFrame(gs);
 		beginCampaign();
+		buildWindowFrame(gs);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		System.out.println("All Done!");
 	}
 
 	private void beginCampaign() {
-		Campaign.addNewLevel("debug");
+		System.out.println("Beginning Campaign...");
+		Campaign.initialize();
+		Campaign.addNewLevel("test");
 	}
 
 	public void loadGraphics() {
+		System.out.println("Loading Graphics...");
 		// Initialize the SpriteSheet and load graphics resources
 		SpriteSheet.initialize();
 	}
 
 	// Set up the window frame, dimensions. No level rendering here.
 	public void buildWindowFrame(GameScreen gs) {
+		System.out.println("Building Window Frame...");
 		int width = 1000;
 		int height = 600;
 		int sideSpacing = 5, topSpacing = 5;

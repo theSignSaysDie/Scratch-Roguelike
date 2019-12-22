@@ -28,7 +28,13 @@ public class MapLayer {
 	}
 
 	public String getTile(int x, int y) {
-		return data[y][x];
+		if (0 <= x && 0 <= y && x < width && y < height)
+			return data[y][x];
+		return "";
+	}
+
+	public boolean isTile(int x, int y, String obj) {
+		return getTile(x, y).contains(obj);
 	}
 
 	public void fill(String obj) {

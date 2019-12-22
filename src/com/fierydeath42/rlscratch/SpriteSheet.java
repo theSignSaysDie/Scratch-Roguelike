@@ -71,7 +71,6 @@ public class SpriteSheet {
 				String imgDir = "img/DawnLike";
 				String path = imgDir + "/" + folder + "/" + spriteSheet + ".png";
 				image = ImageIO.read(new File(path));
-				System.out.println(path);
 				sheetdict.put(spriteSheet, image);
 			}
 
@@ -111,12 +110,12 @@ public class SpriteSheet {
 		for drawing by other classes.
 	 */
 	public static BufferedImage getSprite(String id) {
-		return spritedict.get(id);
+		BufferedImage result = spritedict.get(id);
+		if (result == null) {
+			return missingText;
+		} else if (id.equals("")) {
+			return null;
+		}
+		return result;
 	}
-
-	/*
-		Takes a short (16 bits long) and separates it into two bytes (8-bit)
-		such that the bitwise concatenation of the first and second bytes
-		produces the original short.
-	 */
 }
