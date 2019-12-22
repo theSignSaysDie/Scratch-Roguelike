@@ -10,13 +10,13 @@ class GameScreen extends JComponent {
 	public GameScreen(GameObject a) {
 		// Bind the GameScreen to the JFrame which contains it
 		app = a;
-
 		// Bind the Camera to this GameScreen
 		camera = new ScreenRenderer(this);
 		app.setTitle(a.getTitle());
 	}
 
 	public void paint(Graphics g) {
+		getParent().setBackground(Color.BLACK);
 		camera.render(g, getSize());
 	}
 }

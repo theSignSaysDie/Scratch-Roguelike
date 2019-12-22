@@ -5,8 +5,10 @@ import java.awt.*;
 
 public class GameObject extends JFrame {
 	String title;
+	GameScreen gs;
 	public GameObject(String title) {
 		this.title = title;
+		gs = new GameScreen(this);
 	}
 
 	public String getTitle() {
@@ -14,13 +16,36 @@ public class GameObject extends JFrame {
 	}
 
 	public void run() {
-		initializeGame(new GameScreen(this));
+		initializeGame(gs);
+		while(true) {
+			doGameLoop();
+		}
+	}
+
+	private void doGameLoop() {
+		updateGameState();
+		updateGraphics();
+	}
+
+	private void updateGameState() {
+		/*
+		 TODO Program method for interpreting a single character in the context of control keys, command buffer, etc.
+		 */
+	}
+
+	private void updateGraphics() {
+		gs.repaint();
 	}
 
 	public void initializeGame(GameScreen gs) {
 		loadGraphics();
 		buildWindowFrame(gs);
+		beginCampaign();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+
+	private void beginCampaign() {
+		Campaign.addNewLevel("debug");
 	}
 
 	public void loadGraphics() {

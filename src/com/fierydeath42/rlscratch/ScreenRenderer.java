@@ -10,20 +10,27 @@ public class ScreenRenderer {
 	}
 
 	public void render(Graphics g, Dimension d) {
-		g.setColor(Color.MAGENTA);
-		g.fillRect(0, 0, d.width, d.height);
-
-		drawSprite(g, "wall-debug0110", 32, 32);
-		drawSprite(g, "wall-debug0101", 64, 32);
-		drawSprite(g, "wall-debug0011", 96, 32);
-		drawSprite(g, "wall-debug1010", 96, 64);
-		drawSprite(g, "wall-debug1001", 96, 96);
-		drawSprite(g, "wall-debug0101", 64, 96);
-		drawSprite(g, "wall-debug1100", 32, 96);
-		drawSprite(g, "wall-debug1010", 32, 64);
+		drawMap(g, d, Campaign.getCurrentLevel());
 	}
 
 	public void drawSprite(Graphics g, String id, int x, int y) {
-		g.drawImage(SpriteSheet.getSprite(id), x, y, x + 32, y + 32, 0, 0, 16, 16, null);
+		g.drawImage(SpriteSheet.getSprite(id), x, y, x + GameVariables.spriteSize, y + GameVariables.spriteSize, 0, 0
+				, GameVariables.spriteDim, GameVariables.spriteDim, null);
+	}
+
+	public void drawMap(Graphics g, Dimension d, LevelMap map) {
+		g.setColor(map.getBGColor());
+		g.fillRect(0, 0, d.width, d.height);
+		for (MapLayerType mlt : MapLayerType.values()) {
+			drawLayer(g, map.getLayer(mlt));
+		}
+	}
+
+	public void drawLayer(Graphics g, MapLayer ml) {
+		for (int j = 0; j < ml.getHeight(); j++) {
+			for (int i = 0; i < ml.getWidth(); i++) {
+				drawSprite(g, ml.getTile(j, i), i * GameVariables.spriteSize, j * GameVariables.spriteSize);
+			}
+		}
 	}
 }

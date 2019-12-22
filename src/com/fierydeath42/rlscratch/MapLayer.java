@@ -7,6 +7,19 @@ public class MapLayer {
 		width = w;
 		height = h;
 		data = new String[h][w];
+		for(int i = 0; i < w; i++) {
+			for(int j = 0; j < h; j++) {
+				data[j][i] = "";
+			}
+		}
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
 	}
 
 	public void setTile(int x, int y, String obj) {
@@ -27,6 +40,17 @@ public class MapLayer {
 			for(int i = left; i < right; i++) {
 				setTile(i, j, obj);
 			}
+		}
+	}
+
+	public void emptyRect(int left, int top, int right, int bottom, String obj) {
+		for(int i = left; i < right; i++) {
+			setTile(i, top, obj);
+			setTile(i, bottom-1, obj);
+		}
+		for(int j = top+1; j < bottom-1; j++) {
+			setTile(left, j, obj);
+			setTile(right-1, j, obj);
 		}
 	}
 }
