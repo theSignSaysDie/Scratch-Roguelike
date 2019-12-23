@@ -82,5 +82,7 @@ public class GameObject extends JFrame {
 		getContentPane().add(panel);
 
 		setVisible(true);
+		setFocusable(true);
+		addKeyListener(new GameInputListener());
 	}
 }

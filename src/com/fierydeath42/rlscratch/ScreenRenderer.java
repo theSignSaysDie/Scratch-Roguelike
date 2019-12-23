@@ -5,8 +5,14 @@ import java.awt.*;
 public class ScreenRenderer {
 	public GameScreen gs;
 
+	private int centerX, centerY;
+	private int absCenterX, absCenterY;
 	public ScreenRenderer(GameScreen gs) {
 		this.gs = gs;
+		absCenterX = gs.getWidth() / 2;
+		absCenterY = gs.getHeight() / 2;
+		centerX = absCenterX;
+		centerY = absCenterY;
 	}
 
 	public void render(Graphics g, Dimension d) {
@@ -23,15 +29,23 @@ public class ScreenRenderer {
 		g.setColor(map.getBGColor());
 		g.fillRect(0, 0, d.width, d.height);
 		for (MapLayerType mlt : MapLayerType.values()) {
-			drawLayer(g, map.getLayer(mlt));
+			drawLayer(g, d, map.getLayer(mlt));
 		}
 	}
 
-	public void drawLayer(Graphics g, MapLayer ml) {
+	public void drawLayer(Graphics g, Dimension d, MapLayer ml) {
+		int adjX, adjY;
 		for (int j = 0; j < ml.getHeight(); j++) {
 			for (int i = 0; i < ml.getWidth(); i++) {
-				drawSprite(g, ml.getTile(j, i), i * GameRefConstants.spriteSize, j * GameRefConstants.spriteSize);
+				adjX = (i * GameRefConstants.spriteSize) - (absCenterX - centerX);
+				adjY = (j * GameRefConstants.spriteSize) - (absCenterY - centerY);
+				drawSprite(g, ml.getTile(i, j), adjX, adjY);
 			}
 		}
+	}
+
+	public void focus(int x, int y) {
+		centerX = x;
+		centerY = y;
 	}
 }

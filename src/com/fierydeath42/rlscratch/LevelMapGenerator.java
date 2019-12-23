@@ -43,8 +43,8 @@ public class LevelMapGenerator {
 				switch(target) {
 					case "wall":
 						layer = map.getLayer(MapLayerType.OBJECT);
-						if (layer.isTile(j, i, target)) {
-							layer.setTile(j, i, layer.getTile(j, i) +
+						if (layer.isTile(i, j, target)) {
+							layer.setTile(i, j, layer.getTile(i, j) +
 									(layer.isTile(i, j-1, target) ? 1 : 0) +
 									(layer.isTile(i +1, j, target) ? 1 : 0) +
 									(layer.isTile(i, j + 1, target) ? 1 : 0) +
@@ -55,8 +55,8 @@ public class LevelMapGenerator {
 					case "floor":
 						layer = map.getLayer(MapLayerType.TERRAIN);
 						MapLayer wallLayer = map.getLayer(MapLayerType.OBJECT);
-						if (layer.isTile(j, i, target)) {
-							layer.setTile(j, i, layer.getTile(j, i) +
+						if (layer.isTile(i, j, target)) {
+							layer.setTile(i, j, layer.getTile(i, j) +
 									(layer.isTile(i, j-1, target) && !wallLayer.isTile(i, j-1, "wall") ? 1 : 0) +
 									(layer.isTile(i +1, j, target) && !wallLayer.isTile(i+1, j, "wall") ? 1 : 0) +
 									(layer.isTile(i, j + 1, target) && !wallLayer.isTile(i, j+1, "wall") ? 1 : 0) +
@@ -65,7 +65,6 @@ public class LevelMapGenerator {
 						}
 						break;
 				}
-
 			}
 		}
 	}
