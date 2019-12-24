@@ -6,6 +6,7 @@ import java.awt.*;
 public class GameObject extends JFrame {
 	String title;
 	GameScreen gs;
+	GameInputListener gil;
 	public GameObject(String title) {
 		this.title = title;
 		gs = new GameScreen(this);
@@ -31,9 +32,25 @@ public class GameObject extends JFrame {
 	}
 
 	private void updateGameState() {
-		/*
-		 TODO Program method for interpreting a single character in the context of control keys, command buffer, etc.
-		 */
+		String input = gil.getInputAndClear();
+		switch (input) {
+			case "w": case "W":
+				gs.getCamera().moveCamera(0, (gil.shiftDown ? 5 : 1));
+				System.out.println("W");
+				break;
+			case "a": case "A":
+				gs.getCamera().moveCamera((gil.shiftDown ? -5 : -1), 0);
+				System.out.println("A");
+				break;
+			case "s": case "S":
+				gs.getCamera().moveCamera(0, (gil.shiftDown ? -5 : -1));
+				System.out.println("S");
+				break;
+			case "d": case "D":
+				gs.getCamera().moveCamera((gil.shiftDown ? 5 : 1), 0);
+				System.out.println("D");
+				break;
+		}
 	}
 
 	private void updateGraphics() {
@@ -46,8 +63,14 @@ public class GameObject extends JFrame {
 		loadGraphics();
 		beginCampaign();
 		buildWindowFrame(gs);
+		setupInput();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		System.out.println("All Done!");
+	}
+
+	private void setupInput() {
+		gil = new GameInputListener();
+		addKeyListener(gil);
 	}
 
 	private void beginCampaign() {

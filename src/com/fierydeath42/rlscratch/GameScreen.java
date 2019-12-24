@@ -17,6 +17,21 @@ class GameScreen extends JComponent {
 
 	public void paint(Graphics g) {
 		getParent().setBackground(Color.BLACK);
+		camera.updateDimensions();
 		camera.render(g, getSize());
+	}
+
+	public ScreenRenderer getCamera() {
+		return camera;
+	}
+
+	public int getWidth() {
+		int width = getSize().width;
+		return width;
+	}
+
+	public int getHeight() {
+		int height = getSize().height;
+		return height;
 	}
 }

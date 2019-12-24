@@ -17,6 +17,8 @@ public class ScreenRenderer {
 
 	public void render(Graphics g, Dimension d) {
 		drawMap(g, d, Campaign.getCurrentLevel());
+		g.setColor(Color.GREEN);
+		g.fillOval(centerX, centerY, 8, 8);
 	}
 
 	public void drawSprite(Graphics g, String id, int x, int y) {
@@ -29,16 +31,16 @@ public class ScreenRenderer {
 		g.setColor(map.getBGColor());
 		g.fillRect(0, 0, d.width, d.height);
 		for (MapLayerType mlt : MapLayerType.values()) {
-			drawLayer(g, d, map.getLayer(mlt));
+			drawLayer(g, map.getLayer(mlt));
 		}
 	}
 
-	public void drawLayer(Graphics g, Dimension d, MapLayer ml) {
+	public void drawLayer(Graphics g, MapLayer ml) {
 		int adjX, adjY;
 		for (int j = 0; j < ml.getHeight(); j++) {
 			for (int i = 0; i < ml.getWidth(); i++) {
-				adjX = (i * GameRefConstants.spriteSize) - (absCenterX - centerX);
-				adjY = (j * GameRefConstants.spriteSize) - (absCenterY - centerY);
+				adjX = (i * GameRefConstants.spriteSize) + (absCenterX - centerX);
+				adjY = (j * GameRefConstants.spriteSize) + (absCenterY - centerY);
 				drawSprite(g, ml.getTile(i, j), adjX, adjY);
 			}
 		}
@@ -47,5 +49,28 @@ public class ScreenRenderer {
 	public void focus(int x, int y) {
 		centerX = x;
 		centerY = y;
+	}
+
+	public void focus(String position) {
+		switch (position) {
+			case "origin":
+				focus(0, 0);
+				break;
+			case "center":
+				focus(absCenterX, absCenterY);
+				break;
+			default:
+				throw new IllegalArgumentException("No such camera angle supported.");
+		}
+	}
+
+	public void updateDimensions() {
+		absCenterX = gs.getWidth() / 2;
+		absCenterY = gs.getHeight() / 2;
+	}
+
+	public void moveCamera(int dx, int dy) {
+		System.out.println("Moving by " + dx + ", " + (0-dy));
+		focus(centerX+dx, centerY-dy);
 	}
 }
