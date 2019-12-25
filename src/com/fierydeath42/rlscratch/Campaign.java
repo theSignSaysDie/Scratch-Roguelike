@@ -9,11 +9,24 @@ import java.util.Hashtable;
 	TODO Level transfer
  */
 
+
+/**
+ * <h1>The Campaign</h1>
+ * Responsible for storing and randomly generating the various levels of the world.
+ * @see LevelMap
+ * @see LevelMapGenerator
+ */
 public class Campaign {
+	/**
+	 * Catalogues the levels for ease of reference by name.
+	 */
 	static Dictionary<String, LevelMap> levels;
 	static int id;
 	static String currentLevel;
 
+	/**
+	 * Called by a running {@code GameObject}.
+	 */
 	public static void initialize() {
 		System.out.println("Initializing Campaign...");
 		levels = new Hashtable<>();

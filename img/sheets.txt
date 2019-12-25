@@ -2,3 +2,5 @@ Characters Player0
 Characters Player1
 Objects Wall
 Objects Floor
+Items ShortWep
+Items MedWep

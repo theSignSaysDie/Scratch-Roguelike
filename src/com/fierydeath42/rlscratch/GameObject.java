@@ -2,8 +2,6 @@ package com.fierydeath42.rlscratch;
 
 import javax.swing.*;
 import java.awt.*;
-import java.sql.Time;
-import java.util.Date;
 
 public class GameObject extends JFrame {
 	String title;
@@ -26,7 +24,7 @@ public class GameObject extends JFrame {
 
 		System.out.println("Beginning Game Loop...");
 		while (true) {
-			if(Timekeeper.isItTime()) {
+			if (Timekeeper.isItTime()) {
 				Timekeeper.setTargetTimeFromNow(1000 / GameRefConstants.maxGameTicksPerSecond);
 				doGameLoop();
 			}
@@ -39,6 +37,13 @@ public class GameObject extends JFrame {
 	}
 
 	private void updateGameState() {
+		if (Mouse.isFocused() && Mouse.isPressed) {
+			gs.getCamera().focus(Mouse.originX + Mouse.getDragDeltaX(),	Mouse.originY + Mouse.getDragDeltaY());
+			return;
+		} else {
+			Mouse.originX = gs.getCamera().getCenterX();
+			Mouse.originY = gs.getCamera().getCenterY();
+		}
 		for (int i = 0; i < Keyboard.keyQueue.size(); i++) {
 			String input = Keyboard.getKeyName(Keyboard.keyQueue.get(i));
 			System.out.println("^^&&**&*&* " + input);
@@ -96,6 +101,9 @@ public class GameObject extends JFrame {
 		gml = new GameMouseListener();
 		initializeMouse();
 		addKeyListener(gkl);
+		addMouseListener(gml);
+		addMouseMotionListener(gml);
+		addMouseWheelListener(gml);
 	}
 
 	private void initializeMouse() {
@@ -116,6 +124,10 @@ public class GameObject extends JFrame {
 		System.out.println("Loading Graphics...");
 		// Initialize the SpriteSheet and load graphics resources
 		SpriteSheet.initialize();
+		// Custom mouse cursor
+		// TODO implement better cursor
+		setCursor(Toolkit.getDefaultToolkit().createCustomCursor(SpriteSheet.getSprite("cursor"), new Point(6, 6),
+				"game cursor"));
 	}
 
 	// Set up the window frame, dimensions. No level rendering here.

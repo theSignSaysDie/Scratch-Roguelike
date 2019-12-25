@@ -64,3 +64,5 @@ floor-stone-lighter0100 Floor 4 4
 floor-stone-lighter0000 Floor 5 3
 floor-stone-lighter0101 Floor 5 4
 floor-stone-lighter0001 Floor 6 4
+
+cursor MedWep 0 0

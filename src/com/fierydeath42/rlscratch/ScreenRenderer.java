@@ -73,4 +73,20 @@ public class ScreenRenderer {
 		System.out.println("Moving by " + dx + ", " + (0-dy));
 		focus(centerX+dx, centerY-dy);
 	}
+
+	public int getCenterX() {
+		return centerX;
+	}
+
+	public int getOriginX() {
+		return centerX - gs.getWidth() / 2;
+	}
+
+	public int getCenterY() {
+		return centerY;
+	}
+
+	public int getOriginY() {
+		return centerY - gs.getHeight() / 2;
+	}
 }
