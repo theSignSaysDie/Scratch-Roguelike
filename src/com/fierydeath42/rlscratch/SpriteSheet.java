@@ -1,7 +1,5 @@
 package com.fierydeath42.rlscratch;
 
-import javafx.util.Pair;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -9,17 +7,17 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 
 public class SpriteSheet {
-	private static int spriteSize = 16;
 	private static Dictionary<String, BufferedImage> spritedict;
 	private static BufferedImage missingText;
 	private static String sheets;
 	private static String spritekey;
 
-	public SpriteSheet() {}
+	public SpriteSheet() {
+	}
 
 	public static void initialize() {
-		if(spritedict == null) {
-			spritedict = new Hashtable<String, BufferedImage>();
+		if (spritedict == null) {
+			spritedict = new Hashtable<>();
 
 			// Load sheets
 			sheets = "img/sheets.txt";
@@ -96,7 +94,10 @@ public class SpriteSheet {
 				keyTokens.nextToken();
 				y = (short) keyTokens.nval;
 				BufferedImage sheetTarget = sheetdict.get(sheet);
-				BufferedImage entry = sheetTarget.getSubimage(x * spriteSize, y * spriteSize, spriteSize, spriteSize);
+				BufferedImage entry = sheetTarget.getSubimage(x * GameRefConstants.spriteDim,
+						y * GameRefConstants.spriteDim,
+						GameRefConstants.spriteDim,
+						GameRefConstants.spriteDim);
 				spritedict.put(id, entry);
 			}
 		} catch (IOException ex) {

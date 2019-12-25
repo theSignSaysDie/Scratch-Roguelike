@@ -2,11 +2,15 @@ package com.fierydeath42.rlscratch;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.Time;
+import java.util.Date;
 
 public class GameObject extends JFrame {
 	String title;
 	GameScreen gs;
-	GameInputListener gil;
+	GameKeyboardListener gkl;
+	GameMouseListener gml;
+
 	public GameObject(String title) {
 		this.title = title;
 		gs = new GameScreen(this);
@@ -21,8 +25,11 @@ public class GameObject extends JFrame {
 		initializeGame(gs);
 
 		System.out.println("Beginning Game Loop...");
-		while(true) {
-			doGameLoop();
+		while (true) {
+			if(Timekeeper.isItTime()) {
+				Timekeeper.setTargetTimeFromNow(1000 / GameRefConstants.maxGameTicksPerSecond);
+				doGameLoop();
+			}
 		}
 	}
 
@@ -32,24 +39,35 @@ public class GameObject extends JFrame {
 	}
 
 	private void updateGameState() {
-		String input = gil.getInputAndClear();
-		switch (input) {
-			case "w": case "W":
-				gs.getCamera().moveCamera(0, (gil.shiftDown ? 5 : 1));
-				System.out.println("W");
-				break;
-			case "a": case "A":
-				gs.getCamera().moveCamera((gil.shiftDown ? -5 : -1), 0);
-				System.out.println("A");
-				break;
-			case "s": case "S":
-				gs.getCamera().moveCamera(0, (gil.shiftDown ? -5 : -1));
-				System.out.println("S");
-				break;
-			case "d": case "D":
-				gs.getCamera().moveCamera((gil.shiftDown ? 5 : 1), 0);
-				System.out.println("D");
-				break;
+		for (int i = 0; i < Keyboard.keyQueue.size(); i++) {
+			String input = Keyboard.getKeyName(Keyboard.keyQueue.get(i));
+			System.out.println("^^&&**&*&* " + input);
+			// TODO once you've finished implementing the Keyboard, redo this code - and also replace the key buffer
+			//  with
+			//  something that reads the head of the keyQueue and check for special characters which might modify the
+			//  behavior of the pressed key
+			switch (input) {
+				case "w":
+				case "W":
+					gs.getCamera().moveCamera(0, (Keyboard.isShiftDown() ? 5 : 1));
+					System.out.println("W");
+					break;
+				case "a":
+				case "A":
+					gs.getCamera().moveCamera((Keyboard.isShiftDown() ? -5 : -1), 0);
+					System.out.println("A");
+					break;
+				case "s":
+				case "S":
+					gs.getCamera().moveCamera(0, (Keyboard.isShiftDown() ? -5 : -1));
+					System.out.println("S");
+					break;
+				case "d":
+				case "D":
+					gs.getCamera().moveCamera((Keyboard.isShiftDown() ? 5 : 1), 0);
+					System.out.println("D");
+					break;
+			}
 		}
 	}
 
@@ -63,14 +81,29 @@ public class GameObject extends JFrame {
 		loadGraphics();
 		beginCampaign();
 		buildWindowFrame(gs);
+		keepTime();
 		setupInput();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		System.out.println("All Done!");
 	}
 
+	private void keepTime() {
+		Timekeeper.startTicking();
+	}
+
 	private void setupInput() {
-		gil = new GameInputListener();
-		addKeyListener(gil);
+		gkl = new GameKeyboardListener();
+		initializeKeyboard();
+		gml = new GameMouseListener();
+		initializeMouse();
+		addKeyListener(gkl);
+	}
+
+	private void initializeMouse() {
+		Mouse mouse = new Mouse();
+	}
+
+	private void initializeKeyboard() {
+		Keyboard keyboard = new Keyboard();
 	}
 
 	private void beginCampaign() {
@@ -106,6 +139,7 @@ public class GameObject extends JFrame {
 
 		setVisible(true);
 		setFocusable(true);
-		addKeyListener(new GameInputListener());
+		addKeyListener(new GameKeyboardListener());
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }
