@@ -128,6 +128,10 @@
       <screen x="62" y="0" width="1304" height="768" />
     </state>
     <state x="519" y="92" key="#com.intellij.ide.util.MemberChooser/62.0.1304.768@62.0.1304.768" timestamp="1577304506325" />
+    <state x="444" y="130" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1577316355182">
+      <screen x="62" y="0" width="1304" height="768" />
+    </state>
+    <state x="444" y="130" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/62.0.1304.768@62.0.1304.768" timestamp="1577316355182" />
     <state x="760" y="242" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1577239529117">
       <screen x="62" y="0" width="1304" height="768" />
     </state>
@@ -140,22 +144,22 @@
       <screen x="62" y="0" width="1304" height="768" />
     </state>
     <state x="548" y="282" width="356" height="204" key="Github.CreateGistDialog/62.0.1304.768@62.0.1304.768" timestamp="1577251371949" />
-    <state width="1261" height="70" key="GridCell.Tab.0.bottom" timestamp="1577308983858">
+    <state width="1261" height="70" key="GridCell.Tab.0.bottom" timestamp="1577387576890">
       <screen x="62" y="0" width="1304" height="768" />
     </state>
-    <state width="1261" height="70" key="GridCell.Tab.0.bottom/62.0.1304.768@62.0.1304.768" timestamp="1577308983858" />
-    <state width="1261" height="70" key="GridCell.Tab.0.center" timestamp="1577308983858">
+    <state width="1261" height="70" key="GridCell.Tab.0.bottom/62.0.1304.768@62.0.1304.768" timestamp="1577387576890" />
+    <state width="1261" height="70" key="GridCell.Tab.0.center" timestamp="1577387576889">
       <screen x="62" y="0" width="1304" height="768" />
     </state>
-    <state width="1261" height="70" key="GridCell.Tab.0.center/62.0.1304.768@62.0.1304.768" timestamp="1577308983858" />
-    <state width="1261" height="70" key="GridCell.Tab.0.left" timestamp="1577308983858">
+    <state width="1261" height="70" key="GridCell.Tab.0.center/62.0.1304.768@62.0.1304.768" timestamp="1577387576889" />
+    <state width="1261" height="70" key="GridCell.Tab.0.left" timestamp="1577387576887">
       <screen x="62" y="0" width="1304" height="768" />
     </state>
-    <state width="1261" height="70" key="GridCell.Tab.0.left/62.0.1304.768@62.0.1304.768" timestamp="1577308983858" />
-    <state width="1261" height="70" key="GridCell.Tab.0.right" timestamp="1577308983858">
+    <state width="1261" height="70" key="GridCell.Tab.0.left/62.0.1304.768@62.0.1304.768" timestamp="1577387576887" />
+    <state width="1261" height="70" key="GridCell.Tab.0.right" timestamp="1577387576889">
       <screen x="62" y="0" width="1304" height="768" />
     </state>
-    <state width="1261" height="70" key="GridCell.Tab.0.right/62.0.1304.768@62.0.1304.768" timestamp="1577308983858" />
+    <state width="1261" height="70" key="GridCell.Tab.0.right/62.0.1304.768@62.0.1304.768" timestamp="1577387576889" />
     <state width="1261" height="225" key="GridCell.Tab.1.bottom" timestamp="1577142440097">
       <screen x="62" y="0" width="1304" height="768" />
     </state>
@@ -226,7 +230,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/fierydeath42/rlscratch/GameObject.java</url>
-          <line>79</line>
+          <line>72</line>
           <option name="timeStamp" value="49" />
         </line-breakpoint>
       </breakpoints>

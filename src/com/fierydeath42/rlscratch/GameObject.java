@@ -9,6 +9,8 @@ public class GameObject extends JFrame {
 	GameKeyboardListener gkl;
 	GameMouseListener gml;
 
+	Monster player;
+
 	public GameObject(String title) {
 		this.title = title;
 		gs = new GameScreen(this);
@@ -37,38 +39,29 @@ public class GameObject extends JFrame {
 	}
 
 	private void updateGameState() {
-		if (Mouse.isFocused() && Mouse.isPressed) {
+		/*if (Mouse.isFocused() && Mouse.isPressed) {
 			gs.getCamera().focus(Mouse.originX + Mouse.getDragDeltaX(),	Mouse.originY + Mouse.getDragDeltaY());
 			return;
 		} else {
 			Mouse.originX = gs.getCamera().getCenterX();
 			Mouse.originY = gs.getCamera().getCenterY();
-		}
+		}*/
 		for (int i = 0; i < Keyboard.keyQueue.size(); i++) {
 			String input = Keyboard.getKeyName(Keyboard.keyQueue.get(i));
-			System.out.println("^^&&**&*&* " + input);
-			// TODO once you've finished implementing the Keyboard, redo this code - and also replace the key buffer
-			//  with
-			//  something that reads the head of the keyQueue and check for special characters which might modify the
-			//  behavior of the pressed key
 			switch (input) {
-				case "w":
-				case "W":
+				case "up":
 					gs.getCamera().moveCamera(0, (Keyboard.isShiftDown() ? 5 : 1));
 					System.out.println("W");
 					break;
-				case "a":
-				case "A":
+				case "left":
 					gs.getCamera().moveCamera((Keyboard.isShiftDown() ? -5 : -1), 0);
 					System.out.println("A");
 					break;
-				case "s":
-				case "S":
+				case "down":
 					gs.getCamera().moveCamera(0, (Keyboard.isShiftDown() ? -5 : -1));
 					System.out.println("S");
 					break;
-				case "d":
-				case "D":
+				case "right":
 					gs.getCamera().moveCamera((Keyboard.isShiftDown() ? 5 : 1), 0);
 					System.out.println("D");
 					break;
@@ -118,6 +111,11 @@ public class GameObject extends JFrame {
 		System.out.println("Beginning Campaign...");
 		Campaign.initialize();
 		Campaign.addNewLevel("test");
+
+		player = MonsterSpawner.makeMonster("player");
+		Campaign.addEntity(player);
+		/*player.x = 5;
+		player.y = 5;*/
 	}
 
 	public void loadGraphics() {

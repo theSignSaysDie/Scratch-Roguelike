@@ -1,22 +1,31 @@
 package com.fierydeath42.rlscratch;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Enumeration;
+import java.util.Hashtable;
 
 public class ScreenRenderer {
 	public GameScreen gs;
 
 	private int centerX, centerY;
 	private int absCenterX, absCenterY;
+	private boolean followingEntity;
+	private Monster targetEntity;
+
 	public ScreenRenderer(GameScreen gs) {
 		this.gs = gs;
 		absCenterX = gs.getWidth() / 2;
 		absCenterY = gs.getHeight() / 2;
 		centerX = absCenterX;
 		centerY = absCenterY;
+		followingEntity = false;
 	}
 
 	public void render(Graphics g, Dimension d) {
 		drawMap(g, d, Campaign.getCurrentLevel());
+		drawEntities(g, Campaign.getEntities());
 		g.setColor(Color.GREEN);
 		g.fillOval(centerX, centerY, 8, 8);
 	}
@@ -35,6 +44,17 @@ public class ScreenRenderer {
 		}
 	}
 
+	public void drawEntities(Graphics g, Dictionary<String, Monster> ml) {
+		int adjX, adjY;
+		Enumeration<String> keys = ml.keys();
+		while(keys.hasMoreElements()) {
+				Monster m = ml.get(keys.nextElement());
+				adjX = (m.x * GameRefConstants.spriteSize) + (absCenterX - centerX);
+				adjY = (m.y * GameRefConstants.spriteSize) + (absCenterY - centerY);
+				drawSprite(g, m.sprite + (Timekeeper.oneOrZero() ? "0" : "1"), adjX, adjY);
+		}
+	}
+
 	public void drawLayer(Graphics g, MapLayer ml) {
 		int adjX, adjY;
 		for (int j = 0; j < ml.getHeight(); j++) {
@@ -49,6 +69,11 @@ public class ScreenRenderer {
 	public void focus(int x, int y) {
 		centerX = x;
 		centerY = y;
+	}
+
+	public void focus(Monster m) {
+		followingEntity = true;
+		targetEntity = m;
 	}
 
 	public void focus(String position) {
@@ -89,4 +114,5 @@ public class ScreenRenderer {
 	public int getOriginY() {
 		return centerY - gs.getHeight() / 2;
 	}
+
 }

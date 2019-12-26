@@ -2,8 +2,14 @@ package com.fierydeath42.rlscratch;
 
 public class Timekeeper {
 	public static long targetTime = -1;
+	public static long startTime;
+	public static void startTicking() {
+		startTime = System.currentTimeMillis();
+	}
 
-	public static void startTicking() {	}
+	public static boolean oneOrZero() {
+		return (System.currentTimeMillis() - startTime) % 1000 < 500;
+	}
 
 	public static boolean isItTime() {
 		return (targetTime <= System.currentTimeMillis());

@@ -21,8 +21,10 @@ public class Campaign {
 	 * Catalogues the levels for ease of reference by name.
 	 */
 	static Dictionary<String, LevelMap> levels;
-	static int id;
+	static int levelID;
+	static int entityID;
 	static String currentLevel;
+	static Dictionary<String, Monster> entities;
 
 	/**
 	 * Called by a running {@code GameObject}.
@@ -30,14 +32,15 @@ public class Campaign {
 	public static void initialize() {
 		System.out.println("Initializing Campaign...");
 		levels = new Hashtable<>();
-		id = 0;
+		entities = new Hashtable<>();
+		levelID = 0;
 	}
 
 	public static String addNewLevel(String levelType) {
 		System.out.println("Adding a new level... ");
 		System.out.println("Generating level of type " + levelType + "...");
 		LevelMap newMap = LevelMapGenerator.generate(levelType);
-		String levelName = levelType + id++;
+		String levelName = levelType + levelID++;
 		System.out.println("Putting " + levelName + " into the Campaign...");
 		levels.put(levelName, newMap);
 		System.out.println("Setting currentLevel to " + levelName);
@@ -53,5 +56,18 @@ public class Campaign {
 
 	public static LevelMap getCurrentLevel() {
 		return getLevel(currentLevel);
+	}
+
+	public static Dictionary<String, Monster> getEntities() {
+		return entities;
+	}
+
+	public static void removeEntity(String target) {
+		entities.remove(target);
+	}
+
+	public static void addEntity(Monster m) {
+		String id = m.type + entityID++;
+		entities.put(id, m);
 	}
 }
