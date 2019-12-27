@@ -1,20 +1,17 @@
 package com.fierydeath42.rlscratch;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Enumeration;
-import java.util.Hashtable;
 
 public class ScreenRenderer {
-	public GameScreen gs;
-
 	private static int centerX;
 	private static int centerY;
 	private static int absCenterX;
 	private static int absCenterY;
 	private static boolean followingEntity;
 	private static Monster targetEntity;
+	public GameScreen gs;
 
 	public ScreenRenderer(GameScreen gs) {
 		this.gs = gs;
@@ -33,9 +30,10 @@ public class ScreenRenderer {
 	}
 
 	public static void drawSprite(Graphics g, String id, int x, int y) {
-		if(!id.equals(""))
-			g.drawImage(SpriteSheet.getSprite(id), x, y, x + GameRefConstants.spriteSize, y + GameRefConstants.spriteSize, 0, 0
-				, GameRefConstants.spriteDim, GameRefConstants.spriteDim, null);
+		if (!id.equals(""))
+			g.drawImage(SpriteSheet.getSprite(id), x, y, x + GameRefConstants.spriteSize,
+					y + GameRefConstants.spriteSize, 0, 0
+					, GameRefConstants.spriteDim, GameRefConstants.spriteDim, null);
 	}
 
 	public static void drawMap(Graphics g, Dimension d, LevelMap map) {
@@ -49,11 +47,11 @@ public class ScreenRenderer {
 	public static void drawEntities(Graphics g, Dictionary<String, Monster> ml) {
 		int adjX, adjY;
 		Enumeration<String> keys = ml.keys();
-		while(keys.hasMoreElements()) {
-				Monster m = ml.get(keys.nextElement());
-				adjX = (m.x * GameRefConstants.spriteSize) + (absCenterX - centerX);
-				adjY = (m.y * GameRefConstants.spriteSize) + (absCenterY - centerY);
-				drawSprite(g, m.sprite + (Timekeeper.oneOrZero() ? "0" : "1"), adjX, adjY);
+		while (keys.hasMoreElements()) {
+			Monster m = ml.get(keys.nextElement());
+			adjX = (m.x * GameRefConstants.spriteSize) + (absCenterX - centerX);
+			adjY = (m.y * GameRefConstants.spriteSize) + (absCenterY - centerY);
+			drawSprite(g, m.sprite + (Timekeeper.oneOrZero() ? "0" : "1"), adjX, adjY);
 		}
 	}
 
@@ -78,6 +76,10 @@ public class ScreenRenderer {
 		targetEntity = m;
 	}
 
+	public static void moveCamera(int dx, int dy) {
+		focus(centerX + dx, centerY - dy);
+	}
+
 	public void focus(String position) {
 		switch (position) {
 			case "origin":
@@ -94,10 +96,6 @@ public class ScreenRenderer {
 	public void updateDimensions() {
 		absCenterX = gs.getWidth() / 2;
 		absCenterY = gs.getHeight() / 2;
-	}
-
-	public static void moveCamera(int dx, int dy) {
-		focus(centerX+dx, centerY-dy);
 	}
 
 	public int getCenterX() {
