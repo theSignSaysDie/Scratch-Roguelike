@@ -10,7 +10,7 @@ public class MonsterSpawner {
 				m.name = "player";
 				m.type = "player";
 				m.health = 100;
-				m.healthMax = 100;
+				m.maxHealth = 100;
 				m.sprite = "dumbfuck";
 		}
 		return m;

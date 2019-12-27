@@ -1,5 +1,8 @@
 package com.fierydeath42.rlscratch;
 
+import javafx.scene.Camera;
+import javafx.stage.Screen;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -39,6 +42,7 @@ public class GameObject extends JFrame {
 	}
 
 	private void updateGameState() {
+
 		/*if (Mouse.isFocused() && Mouse.isPressed) {
 			gs.getCamera().focus(Mouse.originX + Mouse.getDragDeltaX(),	Mouse.originY + Mouse.getDragDeltaY());
 			return;
@@ -50,20 +54,16 @@ public class GameObject extends JFrame {
 			String input = Keyboard.getKeyName(Keyboard.keyQueue.get(i));
 			switch (input) {
 				case "up":
-					gs.getCamera().moveCamera(0, (Keyboard.isShiftDown() ? 5 : 1));
-					System.out.println("W");
+					ScreenRenderer.moveCamera(0, (Keyboard.isShiftDown() ? 5 : 1));
 					break;
 				case "left":
-					gs.getCamera().moveCamera((Keyboard.isShiftDown() ? -5 : -1), 0);
-					System.out.println("A");
+					ScreenRenderer.moveCamera((Keyboard.isShiftDown() ? -5 : -1), 0);
 					break;
 				case "down":
-					gs.getCamera().moveCamera(0, (Keyboard.isShiftDown() ? -5 : -1));
-					System.out.println("S");
+					ScreenRenderer.moveCamera(0, (Keyboard.isShiftDown() ? -5 : -1));
 					break;
 				case "right":
-					gs.getCamera().moveCamera((Keyboard.isShiftDown() ? 5 : 1), 0);
-					System.out.println("D");
+					ScreenRenderer.moveCamera((Keyboard.isShiftDown() ? 5 : 1), 0);
 					break;
 			}
 		}

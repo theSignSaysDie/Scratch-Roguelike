@@ -9,10 +9,12 @@ import java.util.Hashtable;
 public class ScreenRenderer {
 	public GameScreen gs;
 
-	private int centerX, centerY;
-	private int absCenterX, absCenterY;
-	private boolean followingEntity;
-	private Monster targetEntity;
+	private static int centerX;
+	private static int centerY;
+	private static int absCenterX;
+	private static int absCenterY;
+	private static boolean followingEntity;
+	private static Monster targetEntity;
 
 	public ScreenRenderer(GameScreen gs) {
 		this.gs = gs;
@@ -23,20 +25,20 @@ public class ScreenRenderer {
 		followingEntity = false;
 	}
 
-	public void render(Graphics g, Dimension d) {
+	public static void render(Graphics g, Dimension d) {
 		drawMap(g, d, Campaign.getCurrentLevel());
 		drawEntities(g, Campaign.getEntities());
 		g.setColor(Color.GREEN);
 		g.fillOval(centerX, centerY, 8, 8);
 	}
 
-	public void drawSprite(Graphics g, String id, int x, int y) {
+	public static void drawSprite(Graphics g, String id, int x, int y) {
 		if(!id.equals(""))
 			g.drawImage(SpriteSheet.getSprite(id), x, y, x + GameRefConstants.spriteSize, y + GameRefConstants.spriteSize, 0, 0
 				, GameRefConstants.spriteDim, GameRefConstants.spriteDim, null);
 	}
 
-	public void drawMap(Graphics g, Dimension d, LevelMap map) {
+	public static void drawMap(Graphics g, Dimension d, LevelMap map) {
 		g.setColor(map.getBGColor());
 		g.fillRect(0, 0, d.width, d.height);
 		for (MapLayerType mlt : MapLayerType.values()) {
@@ -44,7 +46,7 @@ public class ScreenRenderer {
 		}
 	}
 
-	public void drawEntities(Graphics g, Dictionary<String, Monster> ml) {
+	public static void drawEntities(Graphics g, Dictionary<String, Monster> ml) {
 		int adjX, adjY;
 		Enumeration<String> keys = ml.keys();
 		while(keys.hasMoreElements()) {
@@ -55,7 +57,7 @@ public class ScreenRenderer {
 		}
 	}
 
-	public void drawLayer(Graphics g, MapLayer ml) {
+	public static void drawLayer(Graphics g, MapLayer ml) {
 		int adjX, adjY;
 		for (int j = 0; j < ml.getHeight(); j++) {
 			for (int i = 0; i < ml.getWidth(); i++) {
@@ -66,12 +68,12 @@ public class ScreenRenderer {
 		}
 	}
 
-	public void focus(int x, int y) {
+	public static void focus(int x, int y) {
 		centerX = x;
 		centerY = y;
 	}
 
-	public void focus(Monster m) {
+	public static void focus(Monster m) {
 		followingEntity = true;
 		targetEntity = m;
 	}
@@ -94,8 +96,7 @@ public class ScreenRenderer {
 		absCenterY = gs.getHeight() / 2;
 	}
 
-	public void moveCamera(int dx, int dy) {
-		System.out.println("Moving by " + dx + ", " + (0-dy));
+	public static void moveCamera(int dx, int dy) {
 		focus(centerX+dx, centerY-dy);
 	}
 

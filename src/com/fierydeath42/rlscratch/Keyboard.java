@@ -47,7 +47,6 @@ public class Keyboard {
 		Integer test = keyCodes.get(name);
 		if(test != null) {
 			keysDown.put(test, true);
-			System.out.println("Adding key " + name);
 			if(keyQueue.indexOf(test) == -1)
 				keyQueue.add(test);
 			return true;
@@ -60,7 +59,6 @@ public class Keyboard {
 		Boolean test = keysDown.get(id);
 		if(test != null) {
 			keysDown.put(id, true);
-			System.out.println("Adding key id " + id);
 			if(keyQueue.indexOf(id) == -1)
 				keyQueue.add(id);
 			return true;
